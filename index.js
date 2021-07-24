@@ -1,24 +1,13 @@
 const express = require("express");
 const path = require("path");
-//const { connect } = require("mongoose");
-//const { Mongoose } = require('mongoose')
 //const Regform=require('./../MODELS/regform')
 const theRouter = require("./src/routes/User.routes");
 const app = express();
 
-const DB_URL = "mongodb://localhost:27017/app2";
-// db connection
-connect(DB_URL,{ useNewUrlParser: true ,useUnifiedTopology: true})
-  .then(() => {
-    console.log(`Database connected`);
-  })
-  .catch((err) => {
-    console.error(`Database err connection`, err);
-  });
-
+// config
 app.set("views", "./src/views");
 app.set("view engine", "ejs");
-
+require('./src/db')
 app.use("/staff", theRouter);
 app.use(express.json());
 app.use(express.static(path.join(__dirname,"public")))
